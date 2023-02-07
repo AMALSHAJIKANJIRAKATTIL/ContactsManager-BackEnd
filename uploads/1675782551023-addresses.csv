@@ -1,0 +1,5 @@
+name,designation,company,industry,email,phone,country
+John Doe,Developer,Acme Inc.,Software,john.doe@acme.com,+1-555-555-5555,USA
+Jane Doe,Designer,Acme Inc.,Software,jane.doe@acme.com,+1-555-555-5556,USA
+Bob Smith,Manager,Acme Inc.,Software,bob.smith@acme.com,+1-555-555-5557,USA
+Alice Johnson,QA Engineer,Acme Inc.,Software,alice.johnson@acme.com,+1-555-555-5558,USA
