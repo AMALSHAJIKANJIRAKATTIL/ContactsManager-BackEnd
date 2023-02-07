@@ -1,7 +1,8 @@
 const express = require("express");
 require('dotenv').config();
-
-const dbconnect=require('./connections/conn')
+const cors=require('cors');
+const dbconnect=require('./connections/conn');
+const bodyParser=require('body-parser')
 dbconnect();
 
 
@@ -11,7 +12,6 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
-const cors=require('cors');
 
 const contactRoute=require('./routes/contactRoute');
 

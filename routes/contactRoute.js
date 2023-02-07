@@ -21,7 +21,7 @@ const upload = multer({ storage: storage });
 
 // Post contacts End Point
 router.post("/", upload.single("file"),async  (req, res) => {
-    console.log(req);
+    
     if (!req.file) {
       return res.status(400).send("No file was uploaded.");
     }
@@ -33,11 +33,14 @@ router.post("/", upload.single("file"),async  (req, res) => {
       .then(async (jsonObj) => {
         
         console.log(jsonObj);
-  
+        jsonObj.forEach(obj => {
+          obj.user = "unknown"; // Get user id from frontend to add to each object
+        });
+        console.log(jsonObj);
         // Json insertion to database
-        let files=await contactModel.insertMany(jsonObj);
+        //let files=await contactModel.insertMany(jsonObj);
         
-        console.log(files);
+        //console.log(files);
 
         fs.unlink(file.path, (err) => {
           if (err) throw err;
