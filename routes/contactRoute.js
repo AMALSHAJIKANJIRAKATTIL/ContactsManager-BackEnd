@@ -18,6 +18,8 @@ const storage = multer.diskStorage({
   });
 const upload = multer({ storage: storage });
   
+
+// Post contacts End Point
 router.post("/", upload.single("file"),async  (req, res) => {
     console.log(req);
     if (!req.file) {
@@ -49,6 +51,20 @@ router.post("/", upload.single("file"),async  (req, res) => {
         res.status(500).send("Error parsing CSV file");
       });
   });
-  
+
+
+// Delete contact api 
+
+router.delete('/delete',async (req,res)=>{
+    try{
+    let delIds=req.body.ids;
+    let deleted= await contactModel.deleteMany({ id: { $in: delIds } });
+    console.log(deleted.deletedCount);
+    res.status(200).send({status: "Success"})
+    }catch(e){
+        res.status(500).send({status: "Failed", error : e})
+    }
+})
+
 
 module.exports = router;
