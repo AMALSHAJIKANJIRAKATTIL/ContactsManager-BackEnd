@@ -10,7 +10,7 @@ const contactSchema = new mongoose.Schema({
     email: String,
     phone: Number,
     country: String,
-    user : {type : mongoose.Schema.Types.ObjectId , ref: 'user' }
+    user : {type : mongoose.Schema.Types.ObjectId , ref: 'User' }
 
 
 })
