@@ -6,10 +6,16 @@ dbconnect();
 
 
 const app = express();
-const cors=require('cors');
-const contactRoute=require('./routes/contactRoute')
 
 app.use(cors());
+
+app.use(bodyParser.json());
+
+const cors=require('cors');
+
+const contactRoute=require('./routes/contactRoute');
+
+
 app.use('/contacts',contactRoute)
 
 

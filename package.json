@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/AMALSHAJIKANJIRAKATTIL/ContactsManager-BackEnd#readme",
   "dependencies": {
+    "body-parser": "^1.20.1",
     "cors": "^2.8.5",
     "csvtojson": "^2.0.10",
     "dotenv": "^16.0.3",
