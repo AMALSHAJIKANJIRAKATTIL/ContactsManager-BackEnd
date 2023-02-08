@@ -34,11 +34,11 @@ router.post("/", upload.single("file"),async  (req, res) => {
         
         console.log(jsonObj);
         jsonObj.forEach(obj => {
-          obj.user = "unknown"; // Get user id from frontend to add to each object
+          obj.user = "63e29ae6aee9061266f1ae90"; // Get user id from frontend to add to each object
         });
         console.log(jsonObj);
         // Json insertion to database
-        //let files=await contactModel.insertMany(jsonObj);
+        let files=await contactModel.insertMany(jsonObj);
         
         //console.log(files);
 
