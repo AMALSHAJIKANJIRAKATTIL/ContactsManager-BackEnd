@@ -8,7 +8,7 @@ const contactSchema = new mongoose.Schema({
     company: String,
     industry: String,
     email: String,
-    phone: Number,
+    phone: String,
     country: String,
     user : {type : mongoose.Schema.Types.ObjectId , ref: 'User' }
 
