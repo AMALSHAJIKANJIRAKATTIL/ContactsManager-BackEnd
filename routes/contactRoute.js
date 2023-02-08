@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const contactModel=require('../models/contacts/contactModel')
-
+const jwt=require('jsonwebtoken')
 
 
 const multer = require("multer");
@@ -17,9 +17,13 @@ const storage = multer.diskStorage({
     }
   });
 const upload = multer({ storage: storage });
-  
+
+
+
+
+// Post contacts End Point
 router.post("/", upload.single("file"),async  (req, res) => {
-    console.log(req);
+    
     if (!req.file) {
       return res.status(400).send("No file was uploaded.");
     }
@@ -30,12 +34,19 @@ router.post("/", upload.single("file"),async  (req, res) => {
       .fromString(fileContents)
       .then(async (jsonObj) => {
         
-        console.log(jsonObj);
-  
+        // Receive data from request header
+        let decodedData=await jwt.decode(req.headers['token']);
+
+        
+        jsonObj.forEach(obj => {
+          obj.user = decodedData.data; // Get user id from frontend to add to each object
+        });
+        
         // Json insertion to database
+
         let files=await contactModel.insertMany(jsonObj);
         
-        console.log(files);
+        //console.log(files);
 
         fs.unlink(file.path, (err) => {
           if (err) throw err;
@@ -49,6 +60,20 @@ router.post("/", upload.single("file"),async  (req, res) => {
         res.status(500).send("Error parsing CSV file");
       });
   });
-  
+
+
+// Delete contact api 
+
+router.delete('/delete',async (req,res)=>{
+    try{
+    let delIds=req.body.ids;
+    let deleted= await contactModel.deleteMany({ id: { $in: delIds } });
+    console.log(deleted.deletedCount);
+    res.status(200).send({status: "Success"})
+    }catch(e){
+        res.status(500).send({status: "Failed", error : e})
+    }
+})
+
 
 module.exports = router;

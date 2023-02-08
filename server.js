@@ -1,16 +1,26 @@
 const express = require("express");
 require('dotenv').config();
-
-const dbconnect=require('./connections/conn')
+const cors=require('cors');
+const dbconnect=require('./connections/conn');
+const bodyParser=require('body-parser')
 dbconnect();
 
 
 const app = express();
-const cors=require('cors');
+
+
 const contactRoute=require('./routes/contactRoute')
 const resisterAndLogin = require('./routes/ResisterAndLogin');
 
+
 app.use(cors());
+
+app.use(bodyParser.json());
+
+
+const contactRoute=require('./routes/contactRoute');
+
+
 app.use('/contacts',contactRoute)
 app.use(resisterAndLogin)
 
