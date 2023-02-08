@@ -67,7 +67,8 @@ router.post("/", upload.single("file"),async  (req, res) => {
 router.delete('/delete',async (req,res)=>{
     try{
     let delIds=req.body.ids;
-    let deleted= await contactModel.deleteMany({ id: { $in: delIds } });
+    console.log(req.body);
+    let deleted= await contactModel.deleteMany({ _id: { $in: delIds } });
     console.log(deleted.deletedCount);
     res.status(200).send({status: "Success"})
     }catch(e){

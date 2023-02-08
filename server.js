@@ -2,8 +2,13 @@ const express = require("express");
 require('dotenv').config();
 const cors=require('cors');
 const dbconnect=require('./connections/conn');
-const bodyParser=require('body-parser')
+const bodyParser=require('body-parser');
+const checkToken = require('./helper/verifytoken');
+
+
 dbconnect();
+
+
 
 
 const app = express();
@@ -15,14 +20,24 @@ const contactDetails=require('./routes/contactDetailsRoute')
 
 app.use(cors());
 
-app.use(bodyParser.json());
+
+app.use(bodyParser.urlencoded({ extended: false }))
+
+
+app.use(bodyParser.json())
+
+
+app.use(resisterAndLogin);
 
 
 
+app.use('/contacts',checkToken,contactRoute);
 
-app.use('/contacts',contactRoute)
-app.use(resisterAndLogin)
-app.use(contactDetails)
+
+
+app.use('/contacts',checkToken,contactDetails);
+
+
 
 
 app.listen(5000, () => {

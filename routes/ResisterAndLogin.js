@@ -4,10 +4,12 @@ const { body, validationResult } = require('express-validator');
 const router = express.Router();
 router.use(express.json());
 const bcrypt = require('bcrypt');
-// const jwt = require("jsonwebtoken");
-const secret = "RESTAPI";
 const jwt = require("jsonwebtoken");
+
+
+const secret = "RESTAPI";
 router.post("/register", async (req, res) => {
+
         try {
             const { email, password } = req.body;
             const user = await userModel.findOne({ email });

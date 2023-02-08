@@ -1,17 +1,15 @@
-const router = require("express").Router()
-const bodyParser = require("body-parser");
+const router = require("express").Router();
 const contactsModel = require("../models/contacts/contactModel");
 
 
 const jwt=require('jsonwebtoken')
 
 
-router.get("/contacts",async(req,res)=>{
+router.get("/",async(req,res)=>{
     try{
         
-        let decodedId=await jwt.decode(req.headers['token']);
-        console.log(decodedId);
-        const users = await contactsModel.find({user:decodedId.data});
+        
+        const users = await contactsModel.find({user:req.user.data});
         if(users.length){
             res.status(200).json({
                 status:"success",
@@ -31,7 +29,7 @@ router.get("/contacts",async(req,res)=>{
     }
 });
 
-router.get("/contacts/:email",async(req,res)=>{
+router.get("/:email",async(req,res)=>{
     try{
 
         const user = await contactsModel.findOne({email:req.params.email});
