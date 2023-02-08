@@ -7,7 +7,7 @@ const bcrypt = require('bcrypt');
 // const jwt = require("jsonwebtoken");
 const secret = "RESTAPI";
 const jwt = require("jsonwebtoken");
-router.post("/resister", async (req, res) => {
+router.post("/register", async (req, res) => {
         try {
             const { email, password } = req.body;
             const user = await userModel.findOne({ email });
