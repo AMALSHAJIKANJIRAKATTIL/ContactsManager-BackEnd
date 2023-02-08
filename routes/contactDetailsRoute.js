@@ -1,6 +1,6 @@
 const router = require("express").Router()
 const bodyParser = require("body-parser");
-const contactsModel = require("../Models/contacts_schema");
+const contactsModel = require("../models/contacts/contactModel");
 router.use(bodyParser.json());
 
 
@@ -29,8 +29,8 @@ router.get("/contacts",async(req,res)=>{
 router.get("/contacts/:email",async(req,res)=>{
     try{
 
-        const user = await contactsModel.findOne({Email:req.params.email});
-        if(user.Email){
+        const user = await contactsModel.findOne({email:req.params.email});
+        if(user.email){
             res.status(200).json({
                 status:"success",
                 user
