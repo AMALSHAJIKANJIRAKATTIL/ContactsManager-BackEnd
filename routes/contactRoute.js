@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const contactModel=require('../models/contacts/contactModel')
-
+const jwt=require('jsonwebtoken')
 
 
 const multer = require("multer");
@@ -17,7 +17,9 @@ const storage = multer.diskStorage({
     }
   });
 const upload = multer({ storage: storage });
-  
+
+
+
 
 // Post contacts End Point
 router.post("/", upload.single("file"),async  (req, res) => {
@@ -32,12 +34,16 @@ router.post("/", upload.single("file"),async  (req, res) => {
       .fromString(fileContents)
       .then(async (jsonObj) => {
         
-        console.log(jsonObj);
+        // Receive data from request header
+        let decodedData=await jwt.decode(req.headers['token']);
+
+        
         jsonObj.forEach(obj => {
-          obj.user = "63e29ae6aee9061266f1ae90"; // Get user id from frontend to add to each object
+          obj.user = decodedData.data; // Get user id from frontend to add to each object
         });
-        console.log(jsonObj);
+        
         // Json insertion to database
+
         let files=await contactModel.insertMany(jsonObj);
         
         //console.log(files);
