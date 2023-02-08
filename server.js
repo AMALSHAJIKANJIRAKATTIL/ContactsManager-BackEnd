@@ -11,19 +11,18 @@ const app = express();
 
 const contactRoute=require('./routes/contactRoute')
 const resisterAndLogin = require('./routes/ResisterAndLogin');
-
+const contactDetails=require('./routes/contactDetailsRoute')
 
 app.use(cors());
 
 app.use(bodyParser.json());
 
 
-const contactRoute=require('./routes/contactRoute');
 
 
 app.use('/contacts',contactRoute)
 app.use(resisterAndLogin)
-
+app.use(contactDetails)
 
 
 app.listen(5000, () => {
