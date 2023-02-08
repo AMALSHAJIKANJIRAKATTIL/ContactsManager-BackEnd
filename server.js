@@ -8,6 +8,11 @@ dbconnect();
 
 const app = express();
 
+
+const contactRoute=require('./routes/contactRoute')
+const resisterAndLogin = require('./routes/ResisterAndLogin');
+
+
 app.use(cors());
 
 app.use(bodyParser.json());
@@ -17,6 +22,7 @@ const contactRoute=require('./routes/contactRoute');
 
 
 app.use('/contacts',contactRoute)
+app.use(resisterAndLogin)
 
 
 
