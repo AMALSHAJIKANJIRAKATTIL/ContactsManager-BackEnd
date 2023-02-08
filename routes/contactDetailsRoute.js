@@ -10,8 +10,8 @@ router.get("/contacts",async(req,res)=>{
     try{
         
         let decodedId=await jwt.decode(req.headers['token']);
-
-        const users = await contactsModel.find({user:decodedId});
+        console.log(decodedId);
+        const users = await contactsModel.find({user:decodedId.data});
         if(users.length){
             res.status(200).json({
                 status:"success",
