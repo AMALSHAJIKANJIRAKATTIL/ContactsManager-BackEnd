@@ -34,17 +34,16 @@ router.post("/", upload.single("file"),async  (req, res) => {
       .fromString(fileContents)
       .then(async (jsonObj) => {
         
-        // Receive data from request header
-        let decodedData=await jwt.decode(req.headers['token']);
+        
 
         
         jsonObj.forEach(obj => {
-          obj.user = decodedData.data; // Get user id from frontend to add to each object
+          obj.user = req.user.data; // Get user id from frontend to add to each object
         });
         
         // Json insertion to database
 
-        let files=await contactModel.insertMany(jsonObj);
+        await contactModel.insertMany(jsonObj);
         
         //console.log(files);
 

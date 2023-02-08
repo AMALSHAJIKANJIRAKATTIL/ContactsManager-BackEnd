@@ -12,7 +12,7 @@ const checkToken = (req, res, next) => {
       
       next();
     } catch (err) {
-      res.status(401).send('Invalid token');
+      res.status(401).send({message:'Invalid token'});
     }
   } else {
     res.status(401).send('Access denied. No token provided.');

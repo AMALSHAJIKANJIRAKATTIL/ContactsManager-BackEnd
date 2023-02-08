@@ -2,18 +2,18 @@ const router = require("express").Router();
 const contactsModel = require("../models/contacts/contactModel");
 
 
-const jwt=require('jsonwebtoken')
+
 
 
 router.get("/",async(req,res)=>{
     try{
         
         
-        const users = await contactsModel.find({user:req.user.data});
-        if(users.length){
+        const contacts = await contactsModel.find({user:req.user.data});
+        if(contacts.length){
             res.status(200).json({
                 status:"success",
-                data : users
+                data : contacts
             })
         }
         else{
