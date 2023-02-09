@@ -3,6 +3,7 @@ const secret = 'RESTAPI';
 
 const checkToken = (req, res, next) => {
   const header = req.headers['authorization'];
+  console.log(header);
   if (typeof header !== 'undefined') {
    
     try {

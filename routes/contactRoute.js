@@ -24,6 +24,7 @@ const upload = multer({ storage: storage });
 // Post contacts End Point
 router.post("/", upload.single("file"),async  (req, res) => {
     
+    
     if (!req.file) {
       return res.status(400).send("No file was uploaded.");
     }
@@ -43,7 +44,7 @@ router.post("/", upload.single("file"),async  (req, res) => {
         
         // Json insertion to database
 
-        await contactModel.insertMany(jsonObj);
+        let files=await contactModel.insertMany(jsonObj);
         
         //console.log(files);
 
@@ -65,8 +66,8 @@ router.post("/", upload.single("file"),async  (req, res) => {
 
 router.delete('/delete',async (req,res)=>{
     try{
-    let delIds=req.body.ids;
-    console.log(req.body);
+    let delIds=req.headers['ids'].split(',');
+    console.log(delIds);
     let deleted= await contactModel.deleteMany({ _id: { $in: delIds } });
     console.log(deleted.deletedCount);
     res.status(200).send({status: "Success"})
